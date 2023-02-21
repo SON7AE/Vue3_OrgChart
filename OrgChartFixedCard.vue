@@ -7,8 +7,12 @@
             <span class="card__detail__label">{{ detailLabel }}</span>
         </div>
         <div v-if="button" class="card__button-box">
-            <button @click="create" class="card__button-box__button">+</button>
-            <button @click="remove" class="card__button-box__button">-</button>
+            <button @click="create" class="card__button-box__button">
+                <el-icon><Plus /></el-icon>
+            </button>
+            <button @click="remove" class="card__button-box__button">
+                <el-icon><Minus /></el-icon>
+            </button>
         </div>
     </div>
 </template>
@@ -94,23 +98,15 @@ export default {
         cursor: pointer;
 
         &__button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             width: 28px;
             height: 28px;
 
             margin: 2px 0;
         }
     }
-    // &:hover {
-    //     .card__button-box {
-    //         display: none;
-    //         display: flex;
-    //         align-items: center;
-    //         justify-content: center;
-
-    //         gap: 4px;
-
-    //         cursor: pointer;
-    //     }
-    // }
 }
 </style>

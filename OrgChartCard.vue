@@ -1,16 +1,21 @@
 <template>
-    <div class="card">
-        <div class="card__command">
-            <span class="card__command__label">{{ commandLabel }}</span>
+    <div class="orgChart-card">
+        <div class="card">
+            <div class="card__command">
+                <button @click="create" class="card__command__button">
+                    <el-icon><Plus /></el-icon>
+                </button>
+                <span class="card__command__label">{{ commandLabel }}</span>
+                <button @click="remove" class="card__command__button">
+                    <el-icon><Minus /></el-icon>
+                </button>
+            </div>
+            <div class="card__detail">
+                <span class="card__detail__label">{{ detailLabel }}</span>
+                <span class="card__detail__name">{{ detailName }}</span>
+            </div>
         </div>
-        <div class="card__detail">
-            <span class="card__detail__label">{{ detailLabel }}</span>
-            <span class="card__detail__name">{{ detailName }}</span>
-        </div>
-        <div v-if="button" class="card__button-box">
-            <button @click="create" class="card__button-box__button">+</button>
-            <button @click="remove" class="card__button-box__button">-</button>
-        </div>
+        <slot name="child"></slot>
     </div>
 </template>
 
@@ -32,6 +37,7 @@ export default {
         button: {
             type: Boolean,
             required: false,
+            default: false,
         },
     },
     date() {
@@ -42,11 +48,24 @@ export default {
         create() {
             this.$emit("create-card", true)
         },
+        remove() {
+            this.$emit("remove-card", true)
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
+.orgChart-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    cursor: pointer;
+}
 .card {
     display: flex;
     flex-direction: column;
@@ -60,7 +79,7 @@ export default {
     &__command {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
 
         width: 180px;
         height: 32px;
@@ -70,6 +89,20 @@ export default {
 
         &__label {
             font-weight: 700;
+        }
+        &__button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 20px;
+            height: 20px;
+
+            margin: 0 12px;
+            border-radius: 50%;
+            border: 1px solid gray;
+
+            cursor: pointer;
         }
     }
     &__detail {
@@ -94,27 +127,5 @@ export default {
             color: rgb(140, 140, 140);
         }
     }
-    &__button-box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        gap: 4px;
-
-        cursor: pointer;
-
-        &__button {
-            width: 28px;
-            height: 28px;
-
-            margin: 2px 0;
-        }
-    }
-    // &:hover {
-    //     .card__button {
-    //         display: block;
-    //         cursor: pointer;
-    //     }
-    // }
 }
 </style>
